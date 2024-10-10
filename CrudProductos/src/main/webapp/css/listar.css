@@ -1,0 +1,65 @@
+/* listar.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    color: #A0522D; /* Marrón suave */
+    text-align: center;
+}
+
+.success-message {
+    background-color: #DFF2BF; /* Verde claro */
+    color: #4F8A10; /* Verde oscuro */
+    border: 1px solid #4F8A10;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 5px;
+}
+
+.error-message {
+    background-color: #FFBABA; /* Rojo claro */
+    color: #D8000C; /* Rojo oscuro */
+    border: 1px solid #D8000C;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #eaeaea;
+}
+
+.action-links a {
+    background-color: #FFD700; /* Amarillo pastel */
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.action-links a:hover {
+    background-color: #FFC107; /* Amarillo más oscuro */
+}

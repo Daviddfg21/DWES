@@ -1,0 +1,46 @@
+/* index.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    color: #6A5ACD; /* Azul pizarra */
+    text-align: center;
+}
+
+.mensaje {
+    background-color: #DFF2BF; /* Verde claro */
+    color: #4F8A10; /* Verde oscuro */
+    padding: 10px;
+    border: 1px solid #4F8A10;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+td a {
+    color: #4A90E2; /* Azul suave */
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #E1F5FE; /* Azul claro */
+    transition: background-color 0.3s;
+}
+
+td a:hover {
+    background-color: #B3E5FC; /* Azul más oscuro */
+}
