@@ -1,12 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Gestión de Empleados</title>
 </head>
 <body>
-
+	<h1>Menú Principal</h1>
+	<ul>
+		<li><a href="EmpleadoController?action=list">Mostrar
+				Empleados</a></li>
+		<li><a href="EmpleadoController?action=salary">Mostrar
+				Salario</a></li>
+		<li><a href="EmpleadoController?action=modify">Modificar
+				Empleado</a></li>
+	</ul>
 </body>
 </html>
