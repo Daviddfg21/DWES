@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @WebServlet("/EmpleadoController")
 public class EmpleadoController extends HttpServlet {
@@ -58,13 +59,49 @@ public class EmpleadoController extends HttpServlet {
 			int categoria = Integer.parseInt(request.getParameter("categoria"));
 			int anios = Integer.parseInt(request.getParameter("anios"));
 
+			// Validar el formato del DNI
+			String dniPattern = "^\\d{8}[A-Za-z]$"; // Formato: 8 dígitos seguidos de una letra
+			if (!Pattern.matches(dniPattern, dni)) {
+				request.setAttribute("errorMessage", "El DNI debe tener 8 números seguidos de una letra.");
+				List<Empleado> empleados = null;
+				try {
+					empleados = empleadoDAO.getAllEmpleados();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} // Cargar la lista para mostrarla
+				request.setAttribute("empleados", empleados);
+				request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
+				return;
+			}
+
 			try {
+				// Verificar si el DNI ya existe
+				if (empleadoDAO.getEmpleadoByDni(dni) != null) {
+					request.setAttribute("errorMessage", "Ya existe un empleado con el DNI proporcionado.");
+					List<Empleado> empleados = empleadoDAO.getAllEmpleados(); // Cargar la lista para mostrarla
+					request.setAttribute("empleados", empleados);
+					request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
+					return;
+				}
+
 				Empleado empleado = new Empleado(dni, nombre, sexo, categoria, anios);
 				empleadoDAO.createEmpleado(empleado);
-				response.sendRedirect("EmpleadoController?action=list");
+				request.setAttribute("successMessage", "Empleado agregado correctamente.");
+				List<Empleado> empleados = empleadoDAO.getAllEmpleados(); // Cargar la lista para mostrarla
+				request.setAttribute("empleados", empleados);
+				request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				request.setAttribute("errorMessage", "Error al agregar el empleado.");
+				List<Empleado> empleados = null;
+				try {
+					empleados = empleadoDAO.getAllEmpleados();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} // Cargar la lista para mostrarla
+				request.setAttribute("empleados", empleados);
 				request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
 			}
 		} else if ("modifyEmployee".equals(action)) {
@@ -86,6 +123,8 @@ public class EmpleadoController extends HttpServlet {
 				} else {
 					request.setAttribute("errorMessage", "Error, el empleado con DNI " + dni + " no existe.");
 				}
+				List<Empleado> empleados = empleadoDAO.getAllEmpleados(); // Cargar la lista para mostrarla
+				request.setAttribute("empleados", empleados);
 				request.getRequestDispatcher("views/modificar.jsp").forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();

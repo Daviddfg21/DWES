@@ -10,6 +10,13 @@
 <body>
 	<h1>Lista de Empleados</h1>
 
+	<c:if test="${not empty successMessage}">
+		<div style="color: green;">${successMessage}</div>
+	</c:if>
+	<c:if test="${not empty errorMessage}">
+		<div style="color: red;">${errorMessage}</div>
+	</c:if>
+
 	<table border="1">
 		<tr>
 			<th>DNI</th>

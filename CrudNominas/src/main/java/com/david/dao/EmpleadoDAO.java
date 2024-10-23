@@ -21,7 +21,6 @@ public class EmpleadoDAO {
 		String sql = "SELECT * FROM empleado";
 
 		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
-
 			while (rs.next()) {
 				String dni = rs.getString("dni");
 				String nombre = rs.getString("nombre");
