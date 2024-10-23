@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 <meta charset="UTF-8">
 <title>Salario Empleado</title>
 </head>
@@ -37,7 +38,7 @@
 		<%=empleado.getAnios()%></p>
 	<p>
 		Salario:
-		<%=empleado.getSueldo()%></p>
+		<%=empleado.getSueldo()%> &euro;</p>
 	<!-- Mostrar sueldo -->
 	<%
 	} else if (request.getMethod().equalsIgnoreCase("POST")) {

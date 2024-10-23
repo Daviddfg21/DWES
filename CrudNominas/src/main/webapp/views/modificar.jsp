@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 <meta charset="UTF-8">
 <title>Filtrar Empleados</title>
 </head>
@@ -24,26 +25,27 @@
 			for="anios">Años de servicio:</label> <input type="number" id="anios"
 			name="anios"><br> <input type="submit" value="Filtrar">
 	</form>
-
+	<c:if test = "${not empty empleados}">
 	<h2>Lista de Empleados</h2>
-	<table border="1">
-		<tr>
-			<th>DNI</th>
-			<th>Nombre</th>
-			<th>Sexo</th>
-			<th>Categoría</th>
-			<th>Años</th>
-		</tr>
-		<c:forEach var="empleado" items="${empleados}">
+		<table border="1">
 			<tr>
-				<td>${empleado.dni}</td>
-				<td>${empleado.nombre}</td>
-				<td>${empleado.sexo}</td>
-				<td>${empleado.categoria}</td>
-				<td>${empleado.anios}</td>
+				<th>DNI</th>
+				<th>Nombre</th>
+				<th>Sexo</th>
+				<th>Categoría</th>
+				<th>Años</th>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach var="empleado" items="${empleados}">
+				<tr>
+					<td>${empleado.dni}</td>
+					<td>${empleado.nombre}</td>
+					<td>${empleado.sexo}</td>
+					<td>${empleado.categoria}</td>
+					<td>${empleado.anios}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
 
 	<br>
 	<button onclick="location.href='index.jsp'">Volver al Menú

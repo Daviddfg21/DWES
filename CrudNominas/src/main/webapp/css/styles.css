@@ -1,0 +1,137 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo del cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f7fa; /* Fondo suave */
+    color: #333; /* Color de texto */
+    padding: 20px;
+    text-align: center; /* Centra el texto en el cuerpo */
+}
+
+/* Títulos */
+h1 {
+    color: #ff5722; /* Naranja oscuro */
+    margin-bottom: 20px;
+    font-size: 2.5em; /* Tamaño de fuente más grande para destacar */
+    font-weight: bold; /* Negrita para el título */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra sutil para el título */
+}
+
+h2 {
+    color: #ff7043; /* Naranja brillante */
+    margin: 15px 0;
+}
+
+/* Estilo de enlaces */
+a {
+    color: #ff5722; /* Naranja oscuro */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo de listas */
+ul {
+    list-style-type: none;
+    padding: 10px 0;
+}
+
+/* Estilo de elementos de lista */
+li {
+    margin: 10px 0;
+}
+
+/* Formulario */
+form {
+    background-color: #ffffff; /* Fondo blanco para formularios */
+    padding: 20px;
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+    margin-bottom: 20px;
+}
+
+/* Etiquetas de formulario */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Campos de entrada */
+input[type="text"],
+input[type="number"],
+select {
+    width: calc(100% - 20px); /* Ancho total menos el padding */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Botones de envío y otros botones */
+input[type="submit"],
+button {
+    background-color: #ff7043; /* Naranja brillante */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer; /* Cursor de mano */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #ff5722; /* Naranja oscuro al pasar el ratón */
+}
+
+/* Tabla */
+table {
+    width: 100%; /* Ancho completo */
+    border-collapse: collapse; /* Colapsar bordes */
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Borde de las filas */
+}
+
+th {
+    background-color: #ff7043; /* Encabezado naranja brillante */
+    color: white; /* Texto blanco */
+}
+
+tr:hover {
+    background-color: #ffe0b2; /* Color de fila al pasar el ratón */
+}
+
+/* Mensajes de éxito y error */
+.success-message {
+    color: #ff5722; /* Naranja oscuro para mensajes de éxito */
+    font-weight: bold;
+    background-color: #f4f7fa; /* Fondo gris claro */
+    padding: 10px; /* Añadir un poco de espacio interior */
+    border-radius: 4px; /* Bordes redondeados */
+    margin: 10px 0; /* Espacio entre mensajes y otros elementos */
+}
+
+.error-message {
+    color: #ff7043; /* Naranja brillante para mensajes de error */
+    font-weight: bold;
+    background-color: #f4f7fa; /* Fondo gris claro */
+    padding: 10px; /* Añadir un poco de espacio interior */
+    border-radius: 4px; /* Bordes redondeados */
+    margin: 10px 0; /* Espacio entre mensajes y otros elementos */
+}
+

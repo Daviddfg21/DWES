@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 <meta charset="UTF-8">
 <title>Gestión de Empleados</title>
 </head>
@@ -13,7 +14,7 @@
 				Empleados</a></li>
 		<li><a href="EmpleadoController?action=salary">Mostrar
 				Salario</a></li>
-		<li><a href="EmpleadoController?action=modify">Modificar
+		<li><a href="EmpleadoController?action=modify">Filtrar
 				Empleado</a></li>
 	</ul>
 </body>

@@ -7,16 +7,34 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * La clase {@code EmpleadoDAO} proporciona métodos para realizar operaciones
+ * CRUD en la tabla de empleados de la base de datos. Utiliza la clase
+ * {@code Conexion} para gestionar la conexión a la base de datos.
+ */
 public class EmpleadoDAO {
 
 	private Connection connection;
 
+	/**
+	 * Constructor de la clase {@code EmpleadoDAO}. Inicializa la conexión con la
+	 * base de datos.
+	 * 
+	 * @throws SQLException si ocurre un error al establecer la conexión con la base
+	 *                      de datos.
+	 */
 	public EmpleadoDAO() throws SQLException {
 		// Inicializamos la conexión con la base de datos
 		connection = Conexion.getConnection();
 	}
 
-	// Obtener todos los empleados
+	/**
+	 * Obtiene todos los empleados de la base de datos.
+	 * 
+	 * @return una lista de objetos {@code Empleado} que representan todos los
+	 *         empleados.
+	 * @throws SQLException si ocurre un error al acceder a la base de datos.
+	 */
 	public List<Empleado> getAllEmpleados() throws SQLException {
 		List<Empleado> empleados = new ArrayList<>();
 		String sql = "SELECT * FROM empleado";
@@ -37,7 +55,22 @@ public class EmpleadoDAO {
 		return empleados;
 	}
 
-	// Filtrar empleados según los criterios proporcionados
+	/**
+	 * Filtra empleados según los criterios proporcionados.
+	 * 
+	 * @param dni       el DNI del empleado a buscar (puede ser {@code null} o
+	 *                  vacío).
+	 * @param nombre    el nombre del empleado a buscar (puede ser {@code null} o
+	 *                  vacío).
+	 * @param sexo      el sexo del empleado a buscar (puede ser {@code null} o
+	 *                  vacío).
+	 * @param categoria la categoría del empleado a buscar (puede ser {@code null}).
+	 * @param anios     los años de servicio del empleado a buscar (puede ser
+	 *                  {@code null}).
+	 * @return una lista de objetos {@code Empleado} que cumplen con los criterios
+	 *         de búsqueda.
+	 * @throws SQLException si ocurre un error al acceder a la base de datos.
+	 */
 	public List<Empleado> getEmpleadosFiltrados(String dni, String nombre, String sexo, Integer categoria,
 			Integer anios) throws SQLException {
 		List<Empleado> empleados = new ArrayList<>();
@@ -95,7 +128,14 @@ public class EmpleadoDAO {
 		return empleados;
 	}
 
-	// Obtener empleado por DNI
+	/**
+	 * Obtiene un empleado de la base de datos según su DNI.
+	 * 
+	 * @param dni el DNI del empleado a buscar.
+	 * @return un objeto {@code Empleado} que representa al empleado encontrado, o
+	 *         {@code null} si no se encuentra.
+	 * @throws SQLException si ocurre un error al acceder a la base de datos.
+	 */
 	public Empleado getEmpleadoByDni(String dni) throws SQLException {
 		Empleado empleado = null;
 		String sql = "SELECT * FROM empleado WHERE dni = ?";
@@ -117,7 +157,13 @@ public class EmpleadoDAO {
 		return empleado;
 	}
 
-	// Crear nuevo empleado
+	/**
+	 * Crea un nuevo empleado en la base de datos.
+	 * 
+	 * @param empleado el objeto {@code Empleado} que se desea agregar a la base de
+	 *                 datos.
+	 * @throws SQLException si ocurre un error al acceder a la base de datos.
+	 */
 	public void createEmpleado(Empleado empleado) throws SQLException {
 		String sql = "INSERT INTO empleado (dni, nombre, sexo, categoria, anios) VALUES (?, ?, ?, ?, ?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -130,7 +176,13 @@ public class EmpleadoDAO {
 		}
 	}
 
-	// Actualizar empleado existente
+	/**
+	 * Actualiza un empleado existente en la base de datos.
+	 * 
+	 * @param empleado el objeto {@code Empleado} que contiene la información
+	 *                 actualizada.
+	 * @throws SQLException si ocurre un error al acceder a la base de datos.
+	 */
 	public void updateEmpleado(Empleado empleado) throws SQLException {
 		String sql = "UPDATE empleado SET nombre = ?, sexo = ?, categoria = ?, anios = ? WHERE dni = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
