@@ -20,11 +20,13 @@ public class EmpleadoController extends HttpServlet {
 		empleadoDAO = new EmpleadoDAO();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 
 		if ("list".equals(action)) {
+			// Mostrar lista completa de empleados
 			try {
 				List<Empleado> empleados = empleadoDAO.getAllEmpleados();
 				request.setAttribute("empleados", empleados);
@@ -33,17 +35,40 @@ public class EmpleadoController extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if ("salary".equals(action)) {
+			// Mostrar página de salario
 			request.getRequestDispatcher("views/salario.jsp").forward(request, response);
 		} else if ("modify".equals(action)) {
+			// Mostrar página de modificar empleados
 			request.getRequestDispatcher("views/modificar.jsp").forward(request, response);
+		} else if ("filterEmployee".equals(action)) {
+			// Filtrar empleados según los criterios del formulario
+			String dni = request.getParameter("dni");
+			String nombre = request.getParameter("nombre");
+			String sexo = request.getParameter("sexo");
+			String categoriaParam = request.getParameter("categoria");
+			String aniosParam = request.getParameter("anios");
+
+			Integer categoria = (categoriaParam != null && !categoriaParam.isEmpty()) ? Integer.parseInt(categoriaParam)
+					: null;
+			Integer anios = (aniosParam != null && !aniosParam.isEmpty()) ? Integer.parseInt(aniosParam) : null;
+
+			try {
+				List<Empleado> empleados = empleadoDAO.getEmpleadosFiltrados(dni, nombre, sexo, categoria, anios);
+				request.setAttribute("empleados", empleados);
+				request.getRequestDispatcher("views/modificar.jsp").forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 
 		if ("getSalary".equals(action)) {
+			// Obtener salario del empleado por DNI
 			String dni = request.getParameter("dni");
 			try {
 				Empleado empleado = empleadoDAO.getEmpleadoByDni(dni);
@@ -53,6 +78,7 @@ public class EmpleadoController extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if ("createEmployee".equals(action)) {
+			// Crear un nuevo empleado
 			String dni = request.getParameter("dni");
 			String nombre = request.getParameter("nombre");
 			char sexo = request.getParameter("sexo").charAt(0);
@@ -60,51 +86,49 @@ public class EmpleadoController extends HttpServlet {
 			int anios = Integer.parseInt(request.getParameter("anios"));
 
 			// Validar el formato del DNI
-			String dniPattern = "^\\d{8}[A-Za-z]$"; // Formato: 8 dígitos seguidos de una letra
+			String dniPattern = "^\\d{8}[A-Za-z]$";
 			if (!Pattern.matches(dniPattern, dni)) {
 				request.setAttribute("errorMessage", "El DNI debe tener 8 números seguidos de una letra.");
-				List<Empleado> empleados = null;
 				try {
-					empleados = empleadoDAO.getAllEmpleados();
+					List<Empleado> empleados = empleadoDAO.getAllEmpleados();
+					request.setAttribute("empleados", empleados);
+					request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} // Cargar la lista para mostrarla
-				request.setAttribute("empleados", empleados);
-				request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
+				}
 				return;
 			}
 
 			try {
-				// Verificar si el DNI ya existe
+				// Verificar si el empleado ya existe
 				if (empleadoDAO.getEmpleadoByDni(dni) != null) {
 					request.setAttribute("errorMessage", "Ya existe un empleado con el DNI proporcionado.");
-					List<Empleado> empleados = empleadoDAO.getAllEmpleados(); // Cargar la lista para mostrarla
+					List<Empleado> empleados = empleadoDAO.getAllEmpleados();
 					request.setAttribute("empleados", empleados);
 					request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
 					return;
 				}
 
+				// Crear nuevo empleado
 				Empleado empleado = new Empleado(dni, nombre, sexo, categoria, anios);
 				empleadoDAO.createEmpleado(empleado);
 				request.setAttribute("successMessage", "Empleado agregado correctamente.");
-				List<Empleado> empleados = empleadoDAO.getAllEmpleados(); // Cargar la lista para mostrarla
+				List<Empleado> empleados = empleadoDAO.getAllEmpleados();
 				request.setAttribute("empleados", empleados);
 				request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				request.setAttribute("errorMessage", "Error al agregar el empleado.");
-				List<Empleado> empleados = null;
 				try {
-					empleados = empleadoDAO.getAllEmpleados();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} // Cargar la lista para mostrarla
-				request.setAttribute("empleados", empleados);
-				request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
+					List<Empleado> empleados = empleadoDAO.getAllEmpleados();
+					request.setAttribute("empleados", empleados);
+					request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
 			}
 		} else if ("modifyEmployee".equals(action)) {
+			// Modificar empleado existente
 			String dni = request.getParameter("dni");
 			String nombre = request.getParameter("nombre");
 			char sexo = request.getParameter("sexo").charAt(0);
@@ -123,7 +147,7 @@ public class EmpleadoController extends HttpServlet {
 				} else {
 					request.setAttribute("errorMessage", "Error, el empleado con DNI " + dni + " no existe.");
 				}
-				List<Empleado> empleados = empleadoDAO.getAllEmpleados(); // Cargar la lista para mostrarla
+				List<Empleado> empleados = empleadoDAO.getAllEmpleados();
 				request.setAttribute("empleados", empleados);
 				request.getRequestDispatcher("views/modificar.jsp").forward(request, response);
 			} catch (SQLException e) {

@@ -52,5 +52,6 @@
 			required><br> <input type="submit"
 			value="Agregar Empleado">
 	</form>
+	<a href="index.jsp">Volver</a>
 </body>
 </html>
