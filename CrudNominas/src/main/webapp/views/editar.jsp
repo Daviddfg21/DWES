@@ -20,10 +20,8 @@
 
 	<form method="post" action="EmpleadoController">
 		<input type="hidden" name="action" value="modifyEmployee"> <input
-			type="hidden" name="dni" value="${empleado.dni}">
-		<!-- Campo oculto para el DNI -->
-
-		<label for="nombre">Nombre:</label> <input type="text" id="nombre"
+			type="hidden" name="dni" value="${empleado.dni}"> <label
+			for="nombre">Nombre:</label> <input type="text" id="nombre"
 			name="nombre" value="${empleado.nombre}" required><br> <label
 			for="sexo">Sexo:</label> <select id="sexo" name="sexo" required>
 			<option value="M"

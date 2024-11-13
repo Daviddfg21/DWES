@@ -26,7 +26,6 @@
 			<th>Categoría</th>
 			<th>Años</th>
 			<th>Acciones</th>
-			<!-- Nueva columna para acciones -->
 		</tr>
 		<c:forEach var="empleado" items="${empleados}">
 			<tr>
@@ -36,8 +35,7 @@
 				<td>${empleado.categoria}</td>
 				<td>${empleado.anios}</td>
 				<td><a
-					href="EmpleadoController?action=edit&dni=${empleado.dni}">Editar</a>
-					<!-- Enlace de edición --></td>
+					href="EmpleadoController?action=edit&dni=${empleado.dni}">Editar</a></td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -13,7 +13,6 @@
 	<form action="EmpleadoController" method="get">
 		<input type="hidden" name="action" value="filterEmployee"> <label
 			for="dni">DNI:</label> <input type="text" id="dni" name="dni"><br>
-
 		<label for="nombre">Nombre:</label> <input type="text" id="nombre"
 			name="nombre"><br> <label for="sexo">Sexo:</label> <select
 			id="sexo" name="sexo">
@@ -25,8 +24,9 @@
 			for="anios">Años de servicio:</label> <input type="number" id="anios"
 			name="anios"><br> <input type="submit" value="Filtrar">
 	</form>
-	<c:if test = "${not empty empleados}">
-	<h2>Lista de Empleados</h2>
+
+	<c:if test="${not empty empleados}">
+		<h2>Lista de Empleados</h2>
 		<table border="1">
 			<tr>
 				<th>DNI</th>

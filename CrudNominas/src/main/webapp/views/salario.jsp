@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.david.model.Empleado"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,37 +16,20 @@
 			required> <input type="submit" value="Buscar">
 	</form>
 
-	<%
-	Empleado empleado = (Empleado) request.getAttribute("empleado");
-	if (empleado != null) {
-	%>
-	<h2>Información del Empleado</h2>
-	<p>
-		DNI:
-		<%=empleado.getDni()%></p>
-	<p>
-		Nombre:
-		<%=empleado.getNombre()%></p>
-	<p>
-		Sexo:
-		<%=empleado.getSexo()%></p>
-	<p>
-		Categoría:
-		<%=empleado.getCategoria()%></p>
-	<p>
-		Años:
-		<%=empleado.getAnios()%></p>
-	<p>
-		Salario:
-		<%=empleado.getSueldo()%> &euro;</p>
-	<!-- Mostrar sueldo -->
-	<%
-	} else if (request.getMethod().equalsIgnoreCase("POST")) {
-	%>
-	<p>No se encontró ningún empleado con el DNI proporcionado.</p>
-	<%
-	}
-	%>
+	<c:if test="${not empty empleado}">
+		<h2>Información del Empleado</h2>
+		<p>DNI: ${empleado.dni}</p>
+		<p>Nombre: ${empleado.nombre}</p>
+		<p>Sexo: ${empleado.sexo}</p>
+		<p>Categoría: ${empleado.categoria}</p>
+		<p>Años: ${empleado.anios}</p>
+		<p>Salario: ${empleado.sueldo} €</p>
+	</c:if>
+
+	<c:if test="${empty empleado}">
+		<p>No se encontró ningún empleado con el DNI proporcionado.</p>
+	</c:if>
+
 	<a href="index.jsp">Volver</a>
 </body>
 </html>
