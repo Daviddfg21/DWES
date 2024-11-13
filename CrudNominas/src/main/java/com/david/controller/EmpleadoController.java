@@ -2,6 +2,7 @@ package com.david.controller;
 
 import com.david.dao.EmpleadoDAO;
 import com.david.model.Empleado;
+import com.david.model.EmpleadoFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -146,8 +147,8 @@ public class EmpleadoController extends HttpServlet {
 					return;
 				}
 
-				// Crear nuevo empleado
-				Empleado empleado = new Empleado(dni, nombre, sexo, categoria, anios);
+				// Crear nuevo empleado usando la factoría
+				Empleado empleado = EmpleadoFactory.crearEmpleado(dni, nombre, sexo, categoria, anios);
 				empleadoDAO.createEmpleado(empleado);
 				request.setAttribute("successMessage", "Empleado agregado correctamente.");
 				List<Empleado> empleados = empleadoDAO.getAllEmpleados();
@@ -203,7 +204,6 @@ public class EmpleadoController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
 		} else if ("modifyEmployee".equals(action)) {
 			// Modificar empleado existente
 			String dni = request.getParameter("dni");
@@ -220,18 +220,16 @@ public class EmpleadoController extends HttpServlet {
 					empleado.setCategoria(categoria);
 					empleado.setAnios(anios);
 					empleadoDAO.updateEmpleado(empleado);
-					request.setAttribute("successMessage", "Empleado con DNI " + dni + " modificado correctamente.");
+					request.setAttribute("successMessage", "Empleado con DNI " + dni + " actualizado correctamente.");
 				} else {
-					request.setAttribute("errorMessage", "Error, el empleado con DNI " + dni + " no existe.");
+					request.setAttribute("errorMessage", "Empleado con DNI " + dni + " no encontrado.");
 				}
 				List<Empleado> empleados = empleadoDAO.getAllEmpleados();
 				request.setAttribute("empleados", empleados);
-				request.setAttribute("successMessage",
-						"Empleado con dni " + dni + " ha sido actualizado correctamente");
+				request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				request.setAttribute("errorMessage", "Algo salió mal");
-			} finally {
+				request.setAttribute("errorMessage", "Error al modificar el empleado.");
 				request.getRequestDispatcher("views/empleados.jsp").forward(request, response);
 			}
 		}

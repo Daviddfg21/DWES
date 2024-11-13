@@ -2,6 +2,7 @@ package com.david.dao;
 
 import com.david.conexion.Conexion;
 import com.david.model.Empleado;
+import com.david.model.EmpleadoFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -47,7 +48,8 @@ public class EmpleadoDAO {
 				int categoria = rs.getInt("categoria");
 				int anios = rs.getInt("anios");
 
-				Empleado empleado = new Empleado(dni, nombre, sexo, categoria, anios);
+				// Usamos la factoría para crear el objeto Empleado
+				Empleado empleado = EmpleadoFactory.crearEmpleado(dni, nombre, sexo, categoria, anios);
 				empleados.add(empleado);
 			}
 		}
@@ -119,7 +121,9 @@ public class EmpleadoDAO {
 					int categoriaResult = rs.getInt("categoria");
 					int aniosResult = rs.getInt("anios");
 
-					Empleado empleado = new Empleado(dniResult, nombreResult, sexoResult, categoriaResult, aniosResult);
+					// Usamos la factoría para crear el objeto Empleado
+					Empleado empleado = EmpleadoFactory.crearEmpleado(dniResult, nombreResult, sexoResult,
+							categoriaResult, aniosResult);
 					empleados.add(empleado);
 				}
 			}
@@ -149,7 +153,8 @@ public class EmpleadoDAO {
 					int categoria = rs.getInt("categoria");
 					int anios = rs.getInt("anios");
 
-					empleado = new Empleado(dni, nombre, sexo, categoria, anios);
+					// Usamos la factoría para crear el objeto Empleado
+					empleado = EmpleadoFactory.crearEmpleado(dni, nombre, sexo, categoria, anios);
 				}
 			}
 		}
